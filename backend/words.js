@@ -1,0 +1,1 @@
+module.exports = ["JOUER", "BOUGE", "ENTRE", "CREER"];

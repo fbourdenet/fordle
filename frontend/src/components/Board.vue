@@ -1,15 +1,15 @@
 <template>
-    <p v-show="isGameFinishedAndWordNotFound" class="subtitle">You lost!</p>
-    <p v-show="isGameFinishedAndWordFound" class="subtitle">You found the word!</p>
-    <p v-show="!isGameFinishedAndWordFound && !isGameFinishedAndWordNotFound" class="subtitle">Find the word!</p>
+    <p v-show="isGameFinishedAndWordNotFound" class="subtitle">Tu as perdu !</p>
+    <p v-show="isGameFinishedAndWordFound" class="subtitle">Tu as trouvé le mot !</p>
+    <p v-show="!isGameFinishedAndWordFound && !isGameFinishedAndWordNotFound" class="subtitle">Trouve le mot !</p>
     <div class="board" @keydown="handleInput($event)" tabindex="1">
       <div class="cell" v-for="(n, i) in this.totalCells" :key="n" :class="{next: isCellNext(i, n, this.length)}">
         <p :ref="getRef(i, n, this.length)"></p>
       </div>
     </div>
 
-    <button class="play-again" :class="{visible: isGameFinishedAndWordFound || isGameFinishedAndWordNotFound}" @click="resetBoard">
-      Play again!
+    <button class="play-again" :class="{visible: isGameFinishedAndWordFound || isGameFinishedAndWordNotFound}" @click="restartGame">
+      Rejouer !
     </button>
 </template>
 
@@ -60,7 +60,8 @@ export default {
     setRowId(n, length) {
       return Math.ceil(n / length) - 1;
     },
-    resetBoard() {
+    restartGame() {
+      this.$socket.emit("get-word-to-guess");
       this.currentCellIndex = 0;
       this.currentLineIndex = 0;
       this.finished = false;

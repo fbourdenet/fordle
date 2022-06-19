@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h1>Fordle</h1>
-    <Board :tries="5" :length="wordLength" v-if="wordLength !== 0"/>
+    <Board :tries="6" :length="wordLength" v-if="wordLength !== 0"/>
     <div class="socials">
       <div class="social">
         <a href="https://github.com/fbourdenet/"><i class="devicon-github-original"></i></a>

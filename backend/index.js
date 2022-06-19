@@ -7,6 +7,7 @@ const http = require('http');
 const server = http.createServer(app);
 const {Server} = require("socket.io");
 const utils = require("./utils");
+const wordList = require("./words");
 
 const io = new Server(server, {
     cors: {
@@ -14,10 +15,15 @@ const io = new Server(server, {
     }
 });
 
-let words = ["ENTRE", "BARON", "JOUER", "LIGNE", "ALGUE"]; // TODO : To fill up
+let words = wordList;
 
 io.on('connect', (socket) => {
-    let wordToGuess = utils.getWordToGuess(words);
+    let wordToGuess = utils.getWordToGuess(words).toUpperCase();
+    console.log(wordToGuess);
+
+    socket.on('get-word-to-guess', () => {
+        wordToGuess = utils.getWordToGuess(words).toUpperCase();
+    });
 
     socket.on('get-word-length', () => {
         let res = utils.getWordLength(wordToGuess);

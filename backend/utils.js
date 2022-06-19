@@ -12,10 +12,9 @@ module.exports = {
         let remaningLetters = wordToGuess;
 
         for (let i = 0; i < word.length; i++) {
-            // if the letter is in the same spot as the letter of the word to guess
             if (word[i] === wordToGuess[i]) {
                 letters.push(word[i]);
-            } else if (remaningLetters.includes(word[i])) { // check if the letter is in the word
+            } else if (remaningLetters.includes(word[i])) {
                 letters.push("MISPLACED");
             } else {
                 letters.push("FALSE");
