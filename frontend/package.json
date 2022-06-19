@@ -1,15 +1,18 @@
 {
-  "name": "fordle",
-  "version": "0.1.0",
-  "private": true,
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0"
+    "socket.io-client": "^4.5.1",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.15",
@@ -29,9 +32,6 @@
       "plugin:vue/vue3-essential",
       "eslint:recommended"
     ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
     "rules": {}
   },
   "browserslist": [
