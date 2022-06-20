@@ -5,10 +5,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const https = require('https');
-const server = https.createServer(app);
-const {Server} = require("socket.io");
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
 const utils = require("./utils");
+
 const WORDS = require("./words");
 
 const io = new Server(server, {
