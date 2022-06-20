@@ -82,24 +82,29 @@ export default {
     initSockets() {
       this.$socket.on("check-user-word", (res) => {
         this.found = res.found;
+
         for (let i = 0; i < this.length; i++) {
           if (res.letters[i] === "FALSE") {
             this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('false');
-          } else if (res.letters[i] === "MISPLACED") {
-            this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('misplaced');
-          } else {
-            this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('right');
+            continue;
           }
+
+          if (res.letters[i] === "MISPLACED") {
+            this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('misplaced');
+            continue;
+          }
+
+          this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('right');
         }
 
         if (this.isLastCellOfGame) {
           this.finished = true;
-          return
+          return;
         }
 
         if (this.found) {
           this.finished = true;
-          return
+          return;
         }
 
         this.currentCellIndex = 0;

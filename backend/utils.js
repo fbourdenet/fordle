@@ -1,4 +1,14 @@
 module.exports = {
+    initLetters: (length) => {
+        let letters = []
+
+        for (let i = 0; i < length; i++) {
+            letters.push('');
+        }
+
+        return letters;
+    },
+
     getWordToGuess: (words) => {
         return words[Math.floor(Math.random() * words.length)];
     },
@@ -7,24 +17,24 @@ module.exports = {
         return word.length;
     },
 
-    checkUserWord: (socket, word, wordToGuess) => {
-        let letters = [];
-        let remaningLetters = wordToGuess;
+    checkUserWord: (word, wordToGuess) => {
+        let letters = module.exports.initLetters(wordToGuess.length);
+        let remaining = wordToGuess;
 
         for (let i = 0; i < word.length; i++) {
-            if (word[i] === wordToGuess[i]) {
-                letters.push(word[i]);
-            } else if (remaningLetters.includes(word[i])) {
-                letters.push("MISPLACED");
+            if (word[i] === remaining[i]) {
+                letters.splice(i, 1, word[i]);
+            } else if (remaining.includes(word[i])) {
+                letters.splice(i, 1, "MISPLACED");
             } else {
-                letters.push("FALSE");
+                letters.splice(i, 1,"FALSE");
             }
 
-            remaningLetters = remaningLetters.replaceAll(word[i], "");
+            remaining = remaining.replace(word[i], "_");
         }
 
         return {
-            found: letters.filter((letter) => letter.trim() !== "FALSE" && letter.trim() !== "MISPLACED").length === word.length,
+            found: word === wordToGuess,
             letters: letters,
         }
     }

@@ -7,7 +7,7 @@ const http = require('http');
 const server = http.createServer(app);
 const {Server} = require("socket.io");
 const utils = require("./utils");
-const wordList = require("./words");
+const WORDS = require("./words");
 
 const io = new Server(server, {
     cors: {
@@ -15,7 +15,7 @@ const io = new Server(server, {
     }
 });
 
-let words = wordList;
+let words = WORDS;
 
 io.on('connect', (socket) => {
     let wordToGuess = utils.getWordToGuess(words).toUpperCase();
@@ -31,7 +31,7 @@ io.on('connect', (socket) => {
     });
 
     socket.on('check-user-word', (word) => {
-        let res = utils.checkUserWord(socket, word, wordToGuess);
+        let res = utils.checkUserWord(word, wordToGuess);
         socket.emit('check-user-word', res);
     });
 });
