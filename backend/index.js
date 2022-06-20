@@ -22,7 +22,6 @@ let words = WORDS;
 
 io.on('connect', (socket) => {
     let wordToGuess = utils.getWordToGuess(words).toUpperCase();
-    console.log(wordToGuess);
 
     socket.on('get-word-to-guess', () => {
         wordToGuess = utils.getWordToGuess(words).toUpperCase();
