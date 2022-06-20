@@ -1,6 +1,6 @@
 module.exports = {
     initLetters: (length) => {
-        let letters = []
+        let letters = [];
 
         for (let i = 0; i < length; i++) {
             letters.push('');
@@ -36,6 +36,6 @@ module.exports = {
         return {
             found: word === wordToGuess,
             letters: letters,
-        }
+        };
     }
 }

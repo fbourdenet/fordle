@@ -35,7 +35,7 @@ export default {
       return this.currentCellIndex === this.length;
     },
     isLastCellOfGame() {
-      return (this.currentCellIndex === this.length) && (this.currentLineIndex === this.tries - 1)
+      return (this.currentCellIndex === this.length) && (this.currentLineIndex === this.tries - 1);
     },
     isGameFinished() {
       return this.finished;
@@ -142,7 +142,7 @@ export default {
 
       // row is completed
       if (currentCell == null) {
-        return
+        return;
       }
 
       currentCell[0].innerText = key;
@@ -153,7 +153,7 @@ export default {
 
       // no letter to delete
       if (previousCell == null) {
-        return
+        return;
       }
 
       previousCell[0].innerText = "";

@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    this.getWordLength()
+    this.getWordLength();
   }
 }
 </script>

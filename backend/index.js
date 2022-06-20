@@ -31,7 +31,7 @@ io.on('connect', (socket) => {
     });
 
     socket.on('check-user-word', (word) => {
-        let res = utils.checkUserWord(word, wordToGuess);
+        let res = utils.checkUserWord(word.toUpperCase(), wordToGuess);
         socket.emit('check-user-word', res);
     });
 });
