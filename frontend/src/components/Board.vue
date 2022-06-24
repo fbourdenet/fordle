@@ -69,8 +69,8 @@ export default {
 
       for (let i = 0; i < this.tries; i++) {
         for (let j = 0; j < this.length; j++) {
-          this.$refs["row" + i + "-cell" + j][0].innerText = "";
-          this.$refs["row" + i + "-cell" + j][0].parentNode.classList = "cell";
+          this.getCell(i, j).innerText = "";
+          this.getCell(i, j).parentNode.classList = "cell";
         }
       }
     },
@@ -79,22 +79,26 @@ export default {
         this.board.push(['']);
       }
     },
+    getCell(indexRow, indexCell) {
+      return this.$refs["row" + indexRow + "-cell" + indexCell][0];
+    },
     initSockets() {
       this.$socket.on("check-user-word", (res) => {
         this.found = res.found;
 
         for (let i = 0; i < this.length; i++) {
+          let cell = this.getCell(this.currentLineIndex, i)
           if (res.letters[i] === "FALSE") {
-            this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('false');
+            cell.parentNode.classList.add('false');
             continue;
           }
 
           if (res.letters[i] === "MISPLACED") {
-            this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('misplaced');
+            cell.parentNode.classList.add('misplaced');
             continue;
           }
 
-          this.$refs["row" + this.currentLineIndex + "-cell" + i][0].parentNode.classList.add('right');
+          cell.parentNode.classList.add('right');
         }
 
         if (this.isLastCellOfGame) {
@@ -138,31 +142,27 @@ export default {
       return key.length <= 1 && /^[A-Za-z]+$/.test(key);
     },
     writeInput(key) {
-      let currentCell = this.$refs["row" + this.currentLineIndex + "-cell" + this.currentCellIndex];
-
-      // row is completed
+      let currentCell = this.getCell(this.currentLineIndex, this.currentCellIndex);
       if (currentCell == null) {
         return;
       }
 
-      currentCell[0].innerText = key;
+      currentCell.innerText = key;
       this.currentCellIndex++;
     },
     deleteInput() {
-      let previousCell = this.$refs["row" + this.currentLineIndex + "-cell" + (this.currentCellIndex - 1)];
-
-      // no letter to delete
+      let previousCell = this.getCell(this.currentLineIndex, this.currentCellIndex - 1);
       if (previousCell == null) {
         return;
       }
 
-      previousCell[0].innerText = "";
+      previousCell.innerText = "";
       this.currentCellIndex--;
     },
     getUserWord() {
       let word = "";
       for (let i = 0; i < this.length; i++) {
-        word += this.$refs["row" + this.currentLineIndex + "-cell" + i][0].innerText;
+        word += this.getCell(this.currentLineIndex, i).innerText;
       }
 
       return word;
